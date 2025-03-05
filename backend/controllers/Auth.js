@@ -6,7 +6,7 @@ const Register=async(req,res)=>{
     try {
           const {userName,email,password}=req.body
           if (!userName || !email || !password) {
-            return res.status(303).json({success:true,message:" All field required"})
+            return res.status(303).json({success:true,message:" All fie are required"})
           }
           const ExiteingUser= await UserModel.findOne({email})
           if (ExiteingUser) {
@@ -32,7 +32,7 @@ const Login=async(req,res)=>{
     try {
           const {email,password}=req.body
           if (!email || !password) {
-            return res.status(303).json({success:true,message:" All field required"})
+            return res.status(303).json({success:true,message:" All fie are required"})
             
           }
           const FindeUser=await UserModel.findOne({email})
@@ -45,7 +45,7 @@ const Login=async(req,res)=>{
             return res.status(404).json({success:true,message:" Invalid Password"})
             
            }
-           const token= await jwt.sign({userId:FindeUser._id},process.env.SecriteKey,{expiresIn:"3d"})
+           const token= await jwt.sign({userId:FindeUser._id},process.env.SECRET_KEY,{expiresIn:"3d"})
            res.cookie('token',token,{
             httpOnly:true,
             secure:false,
@@ -73,7 +73,7 @@ const isLogin=async(req,res)=>{
         const userId=req.userId
         const user=await UserModel.findById(userId)
               if (!user) {
-                return res.status(200).json({success:false,message:"User Not Logind",user,isLoggedIn:false})
+                return res.status(200).json({success:false,message:"User Not Login",user,isLoggedIn:false})
               }
               res.status(200).json({success:true,message:"User is Login",user,isLoggedIn:true})
     } catch (error) {

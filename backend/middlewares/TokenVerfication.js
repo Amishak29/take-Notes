@@ -8,7 +8,8 @@ const TokenVerfication=async(req,res,next)=>{
                 return res.status(404).json({ success: false, message: "Unauthorized, please login" });
 
                }
-                  const decoded= await jwt.decode(token,process.env.SECRET_KEY)
+                  const decoded = jwt.verify(token, process.env.SECRET_KEY);
+
                   const user= await UserModel.findById(decoded.userId)
 
                   if (!user) {
